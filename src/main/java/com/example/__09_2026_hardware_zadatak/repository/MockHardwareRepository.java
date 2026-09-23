@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class MockHardwareRepository implements HardwareRepository {
@@ -37,8 +38,43 @@ public class MockHardwareRepository implements HardwareRepository {
     @Override
     public Hardware getHardwareByCode(String hardwareCode) {
         return hardwareList.stream()
-                .filter(a ->  a.getŠifra().equalsIgnoreCase(hardwareCode))
+                .filter(a -> a.getSifra().equalsIgnoreCase(hardwareCode))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public void saveNewHardware(Hardware hardware) {
+        hardware.setId(hardwareList.size() + 1);
+        hardwareList.add(hardware);
+    }
+
+    @Override
+    public Optional<Hardware> updateHardware(Hardware hardware, Integer hardwareId) {
+
+        Optional<Hardware> storedHardwareOptional = hardwareList.stream()
+                .filter(h -> h.getId().equals(hardwareId))
+                .findFirst();
+
+        if (storedHardwareOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Hardware storedHardware = storedHardwareOptional.get();
+
+        storedHardware.setNaziv(hardware.getNaziv());
+        storedHardware.setTip(hardware.getTip());
+        storedHardware.setSifra(hardware.getSifra());
+        storedHardware.setCijena(hardware.getCijena());
+        storedHardware.setKolicina(hardware.getKolicina());
+
+        return Optional.of(storedHardware);
+    }
+
+    @Override
+    public boolean deleteHardware(Integer hardwareId) {
+        return hardwareList.removeIf(
+                hardware -> hardware.getId().equals(hardwareId)
+        );
     }
 }

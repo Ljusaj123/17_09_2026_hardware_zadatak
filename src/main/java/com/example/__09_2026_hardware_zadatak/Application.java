@@ -13,6 +13,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //Proširiti rješenje zadatka iz prvog dijela na način da se implementiraju podatkovni i servisni sloj te sloj controllera koji će implementirati dohvat podataka putem REST API sučelja.
 //Podaci koji se dohvaćaju moraju biti vezani definiranje podatke o artiklima hardvera.
 //Napisati klasu „HardwareDTO” koja će sadržavati samo one podatke koje ima smisla prikazivati korisnicima.
+
+
+//Proširiti rješenje iz druge vježbe te implementirati sve preostale metode REST API sučelja kako je demonstrirano: GET, POST, PUT i DELETE.
+//Dodati sve potrebne ovisnosti u "pom.xml" kao što je "spring-boot-starter-validation" u "pom.xml" datoteku.
+//Proširiti HardwareDTO klasu s validacijskim anotacijama kako bi se validirala ispravnost poslanih podataka.
+//        Napisati POST, PUT i DELETE metode koje će upravljati podacima entiteta.
+//Dodatne metode potrebno je implementirati po sva tri sloja aplikacije: "controller", "service" i "repository".
+
 @SpringBootApplication
 public class Application {
 
