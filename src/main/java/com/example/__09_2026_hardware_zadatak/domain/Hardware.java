@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Hardware {
-    private Integer id;
+    private Long id;
     private String naziv;
     private String sifra;
     private BigDecimal cijena;

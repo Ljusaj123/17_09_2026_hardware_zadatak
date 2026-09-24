@@ -21,6 +21,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //        Napisati POST, PUT i DELETE metode koje će upravljati podacima entiteta.
 //Dodatne metode potrebno je implementirati po sva tri sloja aplikacije: "controller", "service" i "repository".
 
+
+
+//Proširiti rješenje iz treće vježbe te umjesto "MockHardwareRepository" implementacije dodati novu implementaciju repozitorija koja će koristiti JdbcTemplate te H2 "in memory" baze podataka.
+//Pomoću anotacije "@Primary" potrebno je proglasiti novu implementaciju repozitorija primarnim.
+//        U "pom.xml" dodati ovisnosti o "spring-boot-starter-jdbc" i "h2"
+//Domensku klasu "Hardware" proširiti s dodatnim identifikatorom "Long id" koji će generirati baza podataka.
+//Kreirati datoteke "data.sql" i "schema.sql" i u nju dodati SQL naredbe koje će kreirati table u bazi podataka te spremiti podatke u odgovarajuće tablice.
+
 @SpringBootApplication
 public class Application {
 

@@ -8,11 +8,13 @@ import java.util.Optional;
 public interface HardwareRepository {
     List<Hardware> getAllHardware();
 
-    Hardware getHardwareByCode(String hardwareCode);
+    Optional<Hardware> getHardwareByCode(String hardwareCode);
 
     void saveNewHardware(Hardware hardware);
 
     Optional<Hardware> updateHardware(Hardware hardware, Integer hardwareId);
 
     boolean deleteHardware(Integer hardwareId);
+
+    boolean hardwareByIdExists(Integer id);
 }

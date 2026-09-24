@@ -16,13 +16,13 @@ public class MockHardwareRepository implements HardwareRepository {
     static {
         hardwareList = new ArrayList<>();
 
-        Hardware firstHardware = new Hardware(1, "Intel Core i7-14700K", "CPU-001", new BigDecimal("429.99"), Type.CPU, 10);
+        Hardware firstHardware = new Hardware(1L, "Intel Core i7-14700K", "CPU-001", new BigDecimal("429.99"), Type.CPU, 10);
 
-        Hardware secondHardware = new Hardware(2, "NVIDIA GeForce RTX 4070", "GPU-001", new BigDecimal("599.99"), Type.GPU, 15);
+        Hardware secondHardware = new Hardware(2L, "NVIDIA GeForce RTX 4070", "GPU-001", new BigDecimal("599.99"), Type.GPU, 15);
 
-        Hardware thirdHardware = new Hardware(3, "ASUS ROG STRIX B650", "MBO-001", new BigDecimal("249.99"), Type.MBO, 2);
+        Hardware thirdHardware = new Hardware(3L, "ASUS ROG STRIX B650", "MBO-001", new BigDecimal("249.99"), Type.MBO, 2);
 
-        Hardware fourthHardware = new Hardware(4, "Corsair Vengeance 32GB", "RAM-001", new BigDecimal("89.99"), Type.RAM, 30);
+        Hardware fourthHardware = new Hardware(4L, "Corsair Vengeance 32GB", "RAM-001", new BigDecimal("89.99"), Type.RAM, 30);
 
         hardwareList.add(firstHardware);
         hardwareList.add(secondHardware);
@@ -36,16 +36,15 @@ public class MockHardwareRepository implements HardwareRepository {
     }
 
     @Override
-    public Hardware getHardwareByCode(String hardwareCode) {
+    public Optional<Hardware> getHardwareByCode(String hardwareCode) {
         return hardwareList.stream()
                 .filter(a -> a.getSifra().equalsIgnoreCase(hardwareCode))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override
     public void saveNewHardware(Hardware hardware) {
-        hardware.setId(hardwareList.size() + 1);
+        hardware.setId((long) (hardwareList.size() + 1));
         hardwareList.add(hardware);
     }
 
@@ -76,5 +75,10 @@ public class MockHardwareRepository implements HardwareRepository {
         return hardwareList.removeIf(
                 hardware -> hardware.getId().equals(hardwareId)
         );
+    }
+
+    @Override
+    public boolean hardwareByIdExists(Integer id) {
+        return false;
     }
 }

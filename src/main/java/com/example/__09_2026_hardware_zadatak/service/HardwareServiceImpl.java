@@ -24,7 +24,8 @@ public class HardwareServiceImpl implements HardwareService {
 
     @Override
     public HardwareDTO getHardwareByCode(String hardwareCode) {
-        Hardware hardware = hardwareRepository.getHardwareByCode(hardwareCode);
+        Hardware hardware = hardwareRepository.getHardwareByCode(hardwareCode)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hardware ne postoji"));
         return new HardwareDTO(hardware);
     }
 
