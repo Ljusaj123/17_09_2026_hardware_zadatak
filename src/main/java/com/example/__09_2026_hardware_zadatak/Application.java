@@ -29,6 +29,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //Domensku klasu "Hardware" proširiti s dodatnim identifikatorom "Long id" koji će generirati baza podataka.
 //Kreirati datoteke "data.sql" i "schema.sql" i u nju dodati SQL naredbe koje će kreirati table u bazi podataka te spremiti podatke u odgovarajuće tablice.
 
+
+//zadatak:
+//Proširiti rješenje iz četvrte vježbe te umjesto H2 baze podataka koristiti MSSQL bazu podataka.
+//Napisati skripte koje će kreirati tablice „Hardware" i „Type" te "INSERT" skripte koje će dodati podatke u bazu podataka.
+//U "pom.xml" datoteci dodati biblioteku za MSSQL bazu podataka:
+//
+//<dependency>  
+//<groupId>com.microsoft.sqlserver</groupId>  
+//<artifactId>mssql-jdbc</artifactId>  
+//<scope>runtime</scope>
+//</dependency>
+//
+//Istestirati funkcionalnosti aplikacije s novom bazom podataka (mora sve funkcionirati kako je funkcioniralo u aplikaciji s H2 bazom podataka).
+
 @SpringBootApplication
 public class Application {
 

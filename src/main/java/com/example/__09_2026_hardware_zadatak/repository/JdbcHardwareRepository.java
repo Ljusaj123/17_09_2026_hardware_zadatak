@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -37,17 +38,34 @@ public class JdbcHardwareRepository implements HardwareRepository {
 
     @Override
     public void saveNewHardware(Hardware hardware) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("naziv", hardware.getNaziv());
-        parameters.put("sifra", hardware.getSifra());
-        parameters.put("cijena", hardware.getCijena());
-        parameters.put("tip", hardware.getTip().name());
-        parameters.put("kolicina", hardware.getKolicina());
+//        Map<String, Object> parameters = new HashMap<>();
+//        parameters.put("naziv", hardware.getNaziv());
+//        parameters.put("sifra", hardware.getSifra());
+//        parameters.put("cijena", hardware.getCijena());
+//        parameters.put("tip", hardware.getTip().name());
+//        parameters.put("kolicina", hardware.getKolicina());
+//
+//        final String SQL =
+//                "SELECT ID FROM FINAL TABLE (INSERT INTO Hardware (naziv, sifra, cijena, tip, kolicina) VALUES (:naziv, :sifra, :cijena, :tip, :kolicina)) Hardware";
+//        Long generatedId = jdbcTemplate.queryForObject(SQL, parameters, Long.class);
+//        hardware.setId(generatedId);
 
-        final String SQL =
-                "SELECT ID FROM FINAL TABLE (INSERT INTO Hardware (naziv, sifra, cijena, tip, kolicina) VALUES (:naziv, :sifra, :cijena, :tip, :kolicina)) Hardware";
-        Long generatedId = jdbcTemplate.queryForObject(SQL, parameters, Long.class);
-        hardware.setId(generatedId);
+
+
+        SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate())
+                .withTableName("Hardware")
+                .usingGeneratedKeyColumns("ID");
+
+        Map<String, Object> parameters = Map.of(
+                "naziv", hardware.getNaziv(),
+                "sifra", hardware.getSifra(),
+                "cijena", hardware.getCijena(),
+                "tip", hardware.getTip().name(),
+                "kolicina", hardware.getKolicina()
+        );
+
+        Number generatedId = insert.executeAndReturnKey(parameters);
+        hardware.setId((long) generatedId.intValue());
 
     }
 
