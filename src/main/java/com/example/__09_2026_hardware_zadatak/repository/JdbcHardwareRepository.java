@@ -60,7 +60,7 @@ public class JdbcHardwareRepository implements HardwareRepository {
                 "naziv", hardware.getNaziv(),
                 "sifra", hardware.getSifra(),
                 "cijena", hardware.getCijena(),
-                "tip", hardware.getTip().name(),
+                "tip_id", hardware.getTip().getId(),
                 "kolicina", hardware.getKolicina()
         );
 
@@ -77,12 +77,12 @@ public class JdbcHardwareRepository implements HardwareRepository {
         parameters.put("naziv", hardware.getNaziv());
         parameters.put("sifra", hardware.getSifra());
         parameters.put("cijena", hardware.getCijena());
-        parameters.put("tip", hardware.getTip().name());
+        parameters.put("tip_id", hardware.getTip().getId());
         parameters.put("kolicina", hardware.getKolicina());
         parameters.put("id", hardwareId);
 
         final String SQL =
-                "UPDATE Hardware SET naziv = :naziv, sifra = :sifra, cijena = :cijena, tip = :tip, kolicina = :kolicina WHERE id = :id";
+                "UPDATE Hardware SET naziv = :naziv, sifra = :sifra, cijena = :cijena, tip_id = :tip_id, kolicina = :kolicina WHERE id = :id";
         jdbcTemplate.update(SQL, parameters);
         hardware.setId(Long.valueOf(hardwareId));
         return Optional.of(hardware);
@@ -127,7 +127,27 @@ public class JdbcHardwareRepository implements HardwareRepository {
             newHardware.setNaziv(rs.getString("naziv"));
             newHardware.setSifra(rs.getString("sifra"));
             newHardware.setCijena(rs.getBigDecimal("cijena"));
-            newHardware.setTip(Type.valueOf(rs.getString("tip")));
+            newHardware.setKolicina(rs.getInt("kolicina"));
+
+            Integer typeId = rs.getInt("tip_id");
+            if (Type.CPU.getId().equals(typeId)) {
+                newHardware.setTip(Type.CPU);
+            }
+            else if (Type.GPU.getId().equals(typeId)) {
+                newHardware.setTip(Type.GPU);
+            }
+            else if (Type.MBO.getId().equals(typeId)) {
+                newHardware.setTip(Type.MBO);
+            }
+            else if (Type.RAM.getId().equals(typeId)) {
+                newHardware.setTip(Type.RAM);
+            }
+            else if (Type.STORAGE.getId().equals(typeId)) {
+                newHardware.setTip(Type.STORAGE);
+            }
+            else if (Type.OTHER.getId().equals(typeId)) {
+                newHardware.setTip(Type.OTHER);
+            }
 
             return newHardware;
         }

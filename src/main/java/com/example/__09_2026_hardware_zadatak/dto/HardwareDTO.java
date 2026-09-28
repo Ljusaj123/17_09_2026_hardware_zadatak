@@ -1,6 +1,7 @@
 package com.example.__09_2026_hardware_zadatak.dto;
 
 import com.example.__09_2026_hardware_zadatak.domain.Hardware;
+import com.example.__09_2026_hardware_zadatak.domain.Type;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -25,7 +26,7 @@ public class HardwareDTO {
     private BigDecimal cijena;
 
     @NotNull(message = "Tip je obavezan")
-    private String tip;
+    private Type tip;
 
     @NotNull(message = "Količina je obavezna")
     @Positive(message = "Količina ne može biti negativna")
@@ -35,7 +36,7 @@ public class HardwareDTO {
         this.naziv = hardware.getNaziv();
         this.sifra = hardware.getSifra();
         this.cijena = hardware.getCijena();
-        this.tip = String.valueOf(hardware.getTip());
+        this.tip = hardware.getTip();
         this.kolicina = hardware.getKolicina();
     }
 }

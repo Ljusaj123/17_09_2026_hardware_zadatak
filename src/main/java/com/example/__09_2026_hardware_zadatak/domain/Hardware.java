@@ -16,13 +16,13 @@ public class Hardware {
     private String sifra;
     private BigDecimal cijena;
     private Type tip;
-    private int kolicina;
+    private Integer kolicina;
 
     public Hardware(HardwareDTO hardwareDTO) {
         this.naziv = hardwareDTO.getNaziv();
         this.sifra = hardwareDTO.getSifra();
         this.cijena = hardwareDTO.getCijena();
-        this.tip = Type.valueOf(hardwareDTO.getTip());
+        this.tip = hardwareDTO.getTip();
         this.kolicina = hardwareDTO.getKolicina();
     }
 }
