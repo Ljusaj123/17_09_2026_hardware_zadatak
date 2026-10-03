@@ -43,6 +43,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //
 //Istestirati funkcionalnosti aplikacije s novom bazom podataka (mora sve funkcionirati kako je funkcioniralo u aplikaciji s H2 bazom podataka).
 
+
+//Proširiti rješenje iz četvrte ili pete vježbe te umjesto JdbcTemplate klase kod pristupa bazi podataka koristiti SpringDataJpa sučelje.
+//U "pom.xml" datoteci dodati sljedeću Maven biblioteku:
+//
+//
+//
+//<dependency>
+//<groupId>org.springframework.boot</groupId>
+//<artifactId>spring-boot-starter-data-jpa</artifactId>
+//</dependency>
+//
+//
+//Doraditi na klasu „Type” na način da ima vlastitu tablicu u bazi podataka te strani ključ za klasu „Hardware”.
+//Prilikom implementacije relacijskih veza i entiteta koristiti Hibernate anotacije.
+//Kreirati nove klase „SpringDataHardwareRepository” i „SpringDataTypeRepository” na način da nasljeđuju sučelje „JpaRepository”.
+//Doraditi klasu „HardwareServiceImpl” kako bi umjesto „JdbcTemplate” repozitorija koristila nove „SpringData” repozitorij klase.
+
 @SpringBootApplication
 public class Application {
 
