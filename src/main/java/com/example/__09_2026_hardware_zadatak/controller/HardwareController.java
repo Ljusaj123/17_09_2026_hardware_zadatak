@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class HardwareController {
         return ResponseEntity.ok("Hardware je uspješno ažuriran");
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{hardwareId}")
     public ResponseEntity<String> deleteHardwareById(@PathVariable Integer hardwareId) {
         hardwareService.deleteHardwareById(hardwareId);
