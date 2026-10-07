@@ -3,6 +3,7 @@ package com.example.__09_2026_hardware_zadatak.service;
 import com.example.__09_2026_hardware_zadatak.domain.RefreshToken;
 import com.example.__09_2026_hardware_zadatak.repository.RefreshTokenRepository;
 import com.example.__09_2026_hardware_zadatak.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,12 @@ public class RefreshTokenService {
             throw new RuntimeException(token.getToken() + " Refresh token is expired. Please make a new login..!");
         }
         return token;
+    }
+
+    @Transactional
+    public void deleteByToken(String token) {
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findByToken(token);
+
+        refreshTokenRepository.deleteByToken(token);
     }
 }

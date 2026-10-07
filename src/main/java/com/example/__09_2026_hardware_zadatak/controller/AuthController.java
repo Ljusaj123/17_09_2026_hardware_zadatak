@@ -7,6 +7,7 @@ import com.example.__09_2026_hardware_zadatak.dto.RefreshTokenRequestDTO;
 import com.example.__09_2026_hardware_zadatak.service.JwtService;
 import com.example.__09_2026_hardware_zadatak.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -57,15 +58,10 @@ public class AuthController {
     }
 
     @PostMapping("/api/v1/logout")
-    public JwtResponseDTO logout(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO) {
-        return refreshTokenService.findByToken(refreshTokenRequestDTO.getToken())
-                .map(refreshTokenService::verifyExpiration)
-                .map(RefreshToken::getUserInfo)
-                .map(userInfo -> {
-                    String accessToken = jwtService.generateToken(userInfo.getUsername());
-                    return JwtResponseDTO.builder()
-                            .accessToken(accessToken)
-                            .token(refreshTokenRequestDTO.getToken()).build();
-                }).orElseThrow(() -> new RuntimeException("Refresh Token is not in DB..!!"));
+    public ResponseEntity<String> logout(@RequestBody RefreshTokenRequestDTO request) {
+
+        refreshTokenService.deleteByToken(request.getToken());
+
+        return ResponseEntity.ok("Uspješno ste odjavljeni.");
     }
 }

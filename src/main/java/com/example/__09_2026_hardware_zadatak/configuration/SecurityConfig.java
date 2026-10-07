@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/auth/api/v1/login", "/auth/api/v1/refreshToken").permitAll()
+                        .requestMatchers("/auth/api/v1/login", "/auth/api/v1/refreshToken", "/auth/api/v1/logout").permitAll()
                         .requestMatchers("/api/v1/**", "/hardware/**").authenticated())
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler((request, response, ex) -> {
