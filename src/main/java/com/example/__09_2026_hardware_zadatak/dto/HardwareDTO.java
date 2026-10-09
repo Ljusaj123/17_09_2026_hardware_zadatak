@@ -28,7 +28,7 @@ public class HardwareDTO {
     private BigDecimal cijena;
 
     @NotNull(message = "Tip je obavezan")
-    private Type tip;
+    private String tip;
 
     @NotNull(message = "Količina je obavezna")
     @Positive(message = "Količina ne može biti negativna")
@@ -38,7 +38,7 @@ public class HardwareDTO {
         this.naziv = hardware.getNaziv();
         this.sifra = hardware.getSifra();
         this.cijena = hardware.getCijena();
-        this.tip = hardware.getTip();
+        this.tip = hardware.getTip().getNaziv();
         this.kolicina = hardware.getKolicina();
     }
 }

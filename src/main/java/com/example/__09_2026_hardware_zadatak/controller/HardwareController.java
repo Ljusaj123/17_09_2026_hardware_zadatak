@@ -33,7 +33,7 @@ public class HardwareController {
     @PostMapping()
     public ResponseEntity<String> saveNewHardware(@Valid @RequestBody HardwareDTO hardwareDTO) {
         hardwareService.saveNewHardware(hardwareDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Hardware je uspješno kreiran");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Hardware je uspjesno kreiran");
     }
 
     @PutMapping("/{hardwareId}")

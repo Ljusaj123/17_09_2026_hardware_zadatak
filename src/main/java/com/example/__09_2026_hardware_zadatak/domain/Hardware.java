@@ -28,11 +28,11 @@ public class Hardware {
     @JoinColumn(name = "tip_id")
     private Type tip;
 
-    public Hardware(HardwareDTO hardwareDTO) {
-        this.naziv = hardwareDTO.getNaziv();
-        this.sifra = hardwareDTO.getSifra();
-        this.cijena = hardwareDTO.getCijena();
-        this.tip = hardwareDTO.getTip();
-        this.kolicina = hardwareDTO.getKolicina();
-    }
+//    public Hardware(HardwareDTO hardwareDTO) {
+//        this.naziv = hardwareDTO.getNaziv();
+//        this.sifra = hardwareDTO.getSifra();
+//        this.cijena = hardwareDTO.getCijena();
+//        this.tip = hardwareDTO.getTip();
+//        this.kolicina = hardwareDTO.getKolicina();
+//    }
 }

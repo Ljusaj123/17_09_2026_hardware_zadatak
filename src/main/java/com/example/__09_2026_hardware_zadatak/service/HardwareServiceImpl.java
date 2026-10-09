@@ -1,6 +1,7 @@
 package com.example.__09_2026_hardware_zadatak.service;
 
 import com.example.__09_2026_hardware_zadatak.domain.Hardware;
+import com.example.__09_2026_hardware_zadatak.domain.Type;
 import com.example.__09_2026_hardware_zadatak.dto.HardwareDTO;
 import com.example.__09_2026_hardware_zadatak.repository.HardwareRepository;
 import com.example.__09_2026_hardware_zadatak.repository.SpringDataHardwareRepository;
@@ -46,7 +47,7 @@ public class HardwareServiceImpl implements HardwareService {
     public void saveNewHardware(HardwareDTO hardwareDTO) {
         //        hardwareRepository.saveNewHardware(hardware);
 
-        Hardware hardware = new Hardware(hardwareDTO);
+        Hardware hardware = convertHardwareDtoToHardware(hardwareDTO);
         springDataHardwareRepository.save(hardware);
 
 
@@ -83,7 +84,10 @@ public class HardwareServiceImpl implements HardwareService {
         hardware.setNaziv(hardwareDTO.getNaziv());
         hardware.setKolicina(hardwareDTO.getKolicina());
         hardware.setSifra(hardwareDTO.getSifra());
-        hardware.setTip(hardwareDTO.getTip());
+
+        Type type = springDataTypeRepository.findByNaziv(hardwareDTO.getNaziv());
+
+        hardware.setTip(type);
 
         springDataHardwareRepository.save(hardware);
     }
@@ -112,24 +116,25 @@ public class HardwareServiceImpl implements HardwareService {
 //        }
     }
 
-//    private HardwareDTO convertHardwareTohardwareDTO(Hardware hardware) {
+//    private HardwareDTO convertHardwareToHardwareDTO(Hardware hardware) {
 //        return new HardwareDTO(hardware.getNaziv(),
 //                hardware.getSifra(), hardware.getCijena(),
 //                hardware.getTip().getNaziv(),
 //                hardware.getKolicina());
 //    }
 
-//    private Hardware convertHardwareDtoToHardware(HardwareDTO hardwareDTO) {
-//        Long latestId =
-//                springDataHardwareRepository.findAll().stream()
-//                        .max((a1, a2) -> a1.getId().compareTo(a2.getId()))
-//                        .get().getId();
-//
-//        return new Hardware(latestId + 1,
-//                hardwareDTO.getNaziv(),
-//                hardwareDTO.getSifra(),
-//                hardwareDTO.getCijena(),
-//                hardwareDTO.getKolicina(),
-//                springDataTypeRepository.findByNaziv(hardwareDTO.getNaziv()));
-//    }
+    private Hardware convertHardwareDtoToHardware(HardwareDTO hardwareDTO) {
+        Hardware hardware = new Hardware();
+
+        hardware.setNaziv(hardwareDTO.getNaziv());
+        hardware.setSifra(hardwareDTO.getSifra());
+        hardware.setCijena(hardwareDTO.getCijena());
+        hardware.setKolicina(hardwareDTO.getKolicina());
+        hardware.setTip(
+                springDataTypeRepository.findByNaziv(hardwareDTO.getTip())
+        );
+
+        return hardware;
+
+    }
 }
